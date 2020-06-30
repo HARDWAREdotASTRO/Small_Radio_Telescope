@@ -1,0 +1,75 @@
+[8332:8928:2019-8-6 14:33:21.242] Main Start
+[8332:8928:2019-8-6 14:33:21.242] Command line:"C:\Users\vk9335uy\Desktop\Project\Pics\Zoom_9dcb238be101b482.exe"  Instance:0xC90000 Show State:1
+[8332:8928:2019-8-6 14:33:21.278] C:\
+[8332:12920:2019-8-6 14:33:21.289] [process_requst] start, url:https://launcher.zoom.us/conf/pui
+[8332:8928:2019-8-6 14:33:21.291] [client_has_installed_app] found path:
+[8332:8928:2019-8-6 14:33:21.291]  ***NULL-POINTER-PLACEHOLDER***
+[8332:8928:2019-8-6 14:33:21.291] [param_query_local_path] path is: C:\Users\vk9335uy\AppData\Roaming\Zoom\ZoomDownload\ dir create response : 1 system error: 1008
+[8332:8928:2019-8-6 14:33:21.291] [downloader_run] State:0
+[8332:8628:2019-8-6 14:33:21.291] [process_requst] start, url:https://launcher.zoom.us/upgrade?os=win
+[8332:8628:2019-8-6 14:33:21.538] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[8332:8628:2019-8-6 14:33:21.538] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[8332:8628:2019-8-6 14:33:21.538] [log_response_content] Content length (1048576 as unknown):598 , Total read: 598 , Error No: 0 , Status code: 200
+[8332:8628:2019-8-6 14:33:21.538] [log_response_content] header:
+[8332:8628:2019-8-6 14:33:21.538] HTTP/1.1 200 OK
+Date: Tue, 06 Aug 2019 19:33:21 GMT
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 598
+Connection: keep-alive
+Server: ZOOM
+x-zm-trackingid: WEB_e6b66353ccbcd5b08fdfb50da9bbd7b0
+Set-Cookie: _zm_mtk_guid=ba9175fe34324878b1f2020c1051450a; Domain=.zoom.us; Expires=Sun, 24-Aug-2087 22:47:28 GMT; Path=/; Secure
+X-Content-Type-Options: nosniff
+Set-Cookie: cred=4A29DE8ACFB7BE326BF4963EF56E2524; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_page_auth=aw1_c_A5-zPdHKS3qbcRJtaBjFbw; Domain=.zoom.us; Path=/; Secure; HttpOnly
+p3p: CP="NOI ADM DEV PSAi COM NAV OUR OTR STP IND DEM"
+Set-Cookie: _zm_ssid=aw1_c_A0kJrqRsTEWgCDNlOAclfQ; Domain=.zoom.us; Path=/; Secure; HttpOnly
+Strict-Transport-Security: max-age=31536000
+X-XSS-Protection: 1; mode=block
+
+
+[8332:8628:2019-8-6 14:33:21.538] [process_requst] End for url:https://launcher.zoom.us/upgrade?os=win, return code:200, Error:0, Response content size:598
+[8332:12920:2019-8-6 14:33:21.541] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[8332:12920:2019-8-6 14:33:21.541] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[8332:12920:2019-8-6 14:33:21.541] [log_response_content] Content length (1048576 as unknown):420 , Total read: 420 , Error No: 0 , Status code: 200
+[8332:12920:2019-8-6 14:33:21.541] [log_response_content] header:
+[8332:12920:2019-8-6 14:33:21.541] HTTP/1.1 200 OK
+Date: Tue, 06 Aug 2019 19:33:21 GMT
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 420
+Connection: keep-alive
+Server: ZOOM
+x-zm-trackingid: WEB_dcc3bd8818591451b47ca65bd1e68d4f
+Set-Cookie: _zm_mtk_guid=39eba1779f964020a0eed64cecb2e8b6; Domain=.zoom.us; Expires=Sun, 24-Aug-2087 22:47:28 GMT; Path=/; Secure
+X-Content-Type-Options: nosniff
+Set-Cookie: cred=E9C8DAEB6F58B758756247FF45B242B4; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_page_auth=aw1_c_4NGzRa8yTBK4neF1FBeOJw; Domain=.zoom.us; Path=/; Secure; HttpOnly
+p3p: CP="NOI ADM DEV PSAi COM NAV OUR OTR STP IND DEM"
+Set-Cookie: _zm_ssid=aw1_c_CQxvH-WWQK6I-6Qdu_42XA; Domain=.zoom.us; Path=/; Secure; HttpOnly
+Cache-Control: no-cache, no-store
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000
+X-XSS-Protection: 1; mode=block
+
+
+[8332:12920:2019-8-6 14:33:21.541] [process_requst] End for url:https://launcher.zoom.us/conf/pui, return code:200, Error:0, Response content size:420
+[8332:8928:2019-8-6 14:33:21.580] [handle_download_job_done] Index: 0 Curr index: 0 StatusCode: 200 Error: 0 Response: 
+[8332:8928:2019-8-6 14:33:21.580] Check-sum=f9cbd530c5e650bf3e3d1e6dfccdc598;VCRed-sum=5689d43c3b201dd3810fa3bba4a6476a;fullmsi-sum=64b6be956b9791b33e04b4d0b92108a7;fullcab-sum=3593a8ebf9b47755a00f180b751addf1;fullsip-sum=5156cfba9354722b80ce37541bee17f0;Installer-sum=64a3358ef286d117231574734f3686c4;Update-Option=1;Current-version=4.4.55311.0714;Download-root=https://launcher.zoom.us/client;Package-url=https://launcher.zoom.us/client/4.4.55311.0714/Zoom.msi?t=atupg;Package-name=Zoom.msi;Installer-name=Installer.exe;ahcab-name=Airhost.CAB;sipcab-name=Sipcall.CAB;codesnippet-name=codesnippet_win.zip;fullcab-name=ZoomFull.CAB;
+[8332:8628:2019-8-6 14:33:21.581] [process_requst] start, url:https://launcher.zoom.us/client/4.4.55311.0714/Installer.exe?t=atupg
+[8332:8928:2019-8-6 14:33:21.582] [client_has_installed_app] found path:
+[8332:8928:2019-8-6 14:33:21.582]  ***NULL-POINTER-PLACEHOLDER***
+[8332:8628:2019-8-6 14:33:22.24] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[8332:8628:2019-8-6 14:33:22.24] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[8332:8628:2019-8-6 14:33:22.169] [read_response_file] Status Code:200, content length: 797016, total read: 797016, error code: 0
+[8332:8628:2019-8-6 14:33:23.140] [process_requst] End for url:https://launcher.zoom.us/client/4.4.55311.0714/Installer.exe?t=atupg, return code:200, Error:0, Response content size:0
+[8332:8928:2019-8-6 14:33:23.202] [handle_download_job_done] Index: 1 Curr index: 1 StatusCode: 200 Error: 0 Response is Empty. 
+[8332:8628:2019-8-6 14:33:23.412] [process_requst] start, url:https://launcher.zoom.us/client/4.4.55311.0714/Zoom.msi?t=atupg
+[8332:8628:2019-8-6 14:33:23.561] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[8332:8628:2019-8-6 14:33:23.561] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[8332:8628:2019-8-6 14:33:24.480] [read_response_file] Status Code:200, content length: 9586692, total read: 9586692, error code: 0
+[8332:8628:2019-8-6 14:33:24.515] [process_requst] End for url:https://launcher.zoom.us/client/4.4.55311.0714/Zoom.msi?t=atupg, return code:200, Error:0, Response content size:0
+[8332:8928:2019-8-6 14:33:24.516] [handle_download_job_done] Index: 2 Curr index: 2 StatusCode: 200 Error: 0 Response is Empty. 
+[8332:8928:2019-8-6 14:33:24.526] C:\Users\vk9335uy\AppData\Roaming\Zoom\ZoomDownload\Installer.exe
+[8332:8928:2019-8-6 14:33:24.526] ZInstaller --conf.mode=silent --ipc_wnd=590572
+[8332:8928:2019-8-6 14:33:25.611] [launch_silent_install] Installer process created, result:42
