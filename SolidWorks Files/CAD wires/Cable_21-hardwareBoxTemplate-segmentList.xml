@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<segmentData xmlns='http://www.solidworks.com/segmentData'>
+    <segment ID='1'>
+        <properties>
+            <Name value='CPoint2@Cable_21-hardwareBoxTemplate.SLDASM:JP5@Cable_21-hardwareBoxTemplate'/>
+            <FromCompID value='0'/>
+            <ToCompID value='0'/>
+            <FromConnectionPoint value=''/>
+            <ToConnectionPoint value=''/>
+            <FromComponentRef value=''/>
+            <ToComponentRef value='JP5'/>
+            <Length value='0.086841'/>
+            <AdditionalLength value='0.086841'/>
+            <FromLocation value='0.029069,-0.101699,0.103990'/>
+            <ToLocation value='0.077777,-0.103215,0.153960'/>
+            <MaxDiameter value='0.000000'/>
+            <Diameter value='0.001000'/>
+            <Comment value='No Comments'/>
+            <Coverings value=''/>
+        </properties>
+    </segment>
+    <segment ID='2'>
+        <properties>
+            <Name value='CPoint1@Cable_21-hardwareBoxTemplate.SLDASM:JP3@Cable_21-hardwareBoxTemplate'/>
+            <FromCompID value='0'/>
+            <ToCompID value='0'/>
+            <FromConnectionPoint value=''/>
+            <ToConnectionPoint value=''/>
+            <FromComponentRef value=''/>
+            <ToComponentRef value='JP3'/>
+            <Length value='0.018672'/>
+            <AdditionalLength value='0.018672'/>
+            <FromLocation value='0.064629,-0.099199,0.124310'/>
+            <ToLocation value='0.064629,-0.087120,0.118564'/>
+            <MaxDiameter value='0.000000'/>
+            <Diameter value='0.001000'/>
+            <Comment value='No Comments'/>
+            <Coverings value=''/>
+        </properties>
+    </segment>
+    <segment ID='3'>
+        <properties>
+            <Name value='JP3@Cable_21-hardwareBoxTemplate:JP4@Cable_21-hardwareBoxTemplate'/>
+            <FromCompID value='0'/>
+            <ToCompID value='0'/>
+            <FromConnectionPoint value=''/>
+            <ToConnectionPoint value=''/>
+            <FromComponentRef value='JP4'/>
+            <ToComponentRef value='JP3'/>
+            <Length value='0.003803'/>
+            <AdditionalLength value='0.003803'/>
+            <FromLocation value='0.064629,-0.087120,0.114760'/>
+            <ToLocation value='0.064629,-0.087120,0.118564'/>
+            <MaxDiameter value='0.000000'/>
+            <Diameter value='0.001000'/>
+            <Comment value='No Comments'/>
+            <Coverings value=''/>
+        </properties>
+    </segment>
+    <segment ID='4'>
+        <properties>
+            <Name value='JP4@Cable_21-hardwareBoxTemplate:JP5@Cable_21-hardwareBoxTemplate'/>
+            <FromCompID value='0'/>
+            <ToCompID value='0'/>
+            <FromConnectionPoint value=''/>
+            <ToConnectionPoint value=''/>
+            <FromComponentRef value='JP5'/>
+            <ToComponentRef value='JP4'/>
+            <Length value='0.044368'/>
+            <AdditionalLength value='0.044368'/>
+            <FromLocation value='0.077777,-0.103215,0.153960'/>
+            <ToLocation value='0.064629,-0.087120,0.114760'/>
+            <MaxDiameter value='0.000000'/>
+            <Diameter value='0.001000'/>
+            <Comment value='No Comments'/>
+            <Coverings value=''/>
+        </properties>
+    </segment>
+</segmentData>
