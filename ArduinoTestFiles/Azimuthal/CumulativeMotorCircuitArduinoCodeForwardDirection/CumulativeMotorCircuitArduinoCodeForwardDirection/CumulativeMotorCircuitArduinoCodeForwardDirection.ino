@@ -1,15 +1,13 @@
 /*
  * Motor Test Code with SRT switches, and reed switch in the forward direction 
  * 
- * The forward direction is Clockwise 
- * 
  * Author: Jonathan Hasan
  * Date: 6/24/2021
  * 
  * Purpose: 
  * 
  * Create a script that will allow for the running of the motor with arduino, pololu chip
- * tsiny motor, the two limit switches on the SRT and the reed switch 
+ * tsiny motor, the two limit switches on the SRT and the reed switch in the forward direction (Clockwise)
  *
  * 
  * Instructions:
@@ -18,15 +16,14 @@
  */
 
 
-//Need a control variable 
+//control variable for conditional statements 
+
 int motor_shutoff = 0; 
 
 //initialize pins and variables for reed switch 
 
-//One end of reed switch should be in pin 2, other should be in ground. 
+//One end of reed switch should be in pin 2, other should be in ground. Pin 8 is just for storing count variable. 
 int count_pin_reed = 2;
-
-//nothing connected to pin 8, just for storing count 
 int output_pin_reed = 8; 
 int reed_count = 0;
 int last_state = 0;
@@ -37,22 +34,11 @@ int A_1 = 13;       //These pins out put forward, reverse and the
 int A_2 = 12;        //pulse width to the Pololu chip.
 int A_PWM = 11;
 
-
-
-// initialize pins and variables  for forward and reverse switch
+// initialize pins and variables for forward switch
 int pin_forward = 7;
-int pin_reverse = 6; 
-
 int output_pin_forward = 5;
-int output_pin_reverse = 4; 
 
-int forward_count = 0; 
-int reverse_count = 0; 
-
-
-int last_state_forward = 0; 
-int last_state_reverse = 0;
-
+//set pwm value 
 int val = 255; 
 
 
@@ -82,14 +68,9 @@ void setup() {
 
   //End Setup for Motor 
 
-
-
 // Setup for limit switches
-  pinMode(pin_forward, INPUT_PULLUP); 
-  pinMode(pin_reverse, INPUT_PULLUP); 
-
+  pinMode(pin_forward, INPUT_PULLUP);  
   pinMode(output_pin_forward, OUTPUT);
-  pinMode(output_pin_reverse, OUTPUT); 
 
  // End setup for Limit Switches 
 
@@ -101,6 +82,7 @@ void loop() {
 
 // Motor Running. 
 
+//As long as the control variable is 0, run the motor. 
 if(motor_shutoff == 0){
 
   //if reed switch count greater than 10, stop the motor.   # first 1000 second: 1029   Total reed switch counts : 2029 for azimuthal direction 
@@ -108,13 +90,14 @@ if(motor_shutoff == 0){
     digitalWrite(A_1, LOW);
     digitalWrite(A_2, LOW);
     digitalWrite(A_PWM, LOW);
-
+    motor_shutoff = 1; 
     Serial.println("Max reed count reached");
     Serial.println("Shutting down......");
     
     Serial.end(); 
   }
 
+  //if pin forward is low, reverse direction as long as switch is LOW
   else if(digitalRead(pin_forward) == LOW) {
     Serial.println("forward switch LOW"); 
     digitalWrite(A_1, LOW);
@@ -124,10 +107,10 @@ if(motor_shutoff == 0){
     digitalWrite(A_1, LOW);
     digitalWrite(A_2, HIGH);
     digitalWrite(A_PWM, round(val/2));
-
+    
+    //When pin returns to INPUT_PULLUP, shutoff the motor 
     if(digitalRead(pin_forward) == HIGH){
-      Serial.println("5V pullup forward reacquired");
-      delay(600); 
+      Serial.println("5V pullup forward reacquired"); 
       motor_shutoff = 1; 
       digitalWrite(A_1, LOW); 
       digitalWrite(A_2, LOW); 
@@ -141,7 +124,7 @@ if(motor_shutoff == 0){
 
   
   
-// else Start motor in forward direction with 50% duty cycle
+// //Otherwise, run motor in forward direction at 50% duty cycle 
   else{
     delay(100); 
     digitalWrite(A_1, HIGH); 
@@ -150,54 +133,14 @@ if(motor_shutoff == 0){
    }
 }
 
+//If control variable is 1, shutoff motor for all future loops 
 else{
-  
   digitalWrite(A_1, LOW); 
   digitalWrite(A_2, LOW); 
   digitalWrite(A_PWM, LOW); 
 }
-
-// Limit Switch counter
-
-// Most likely don't need this. The last state variable can be used in order to keep track of behavior in event 
-// power failure 
-
- ///THIS CODE NEEDS TO BE UPDATED! The limit switch must stop as soon as it triggers to LOW 
- 
-  //read the pin for switches
-  int forwardSensorVal = digitalRead(pin_forward); 
-  int reverseSensorVal = digitalRead(pin_reverse);
-
-
-  //check if the state of pins 4, 5 is equal to the sensor value state. 
-  //If it is, don't increment count. If not, change value and increase by 1. 
-  if(last_state_forward != forwardSensorVal){
-    if (forwardSensorVal == HIGH) {
-      digitalWrite(output_pin_forward, LOW);
-      forward_count += 1;
-  }  else {
-      digitalWrite(output_pin_forward, HIGH); 
-    }
-  }
-
-  if(last_state_reverse != reverseSensorVal){
-    if (reverseSensorVal == HIGH) {
-      digitalWrite(output_pin_reverse, LOW);
-      reverse_count += 1;
-  }  else {
-      digitalWrite(output_pin_reverse, HIGH); 
-    }
-  }
-
-
-  //change state to recent state and print count
-  last_state_forward = forwardSensorVal; 
-  last_state_reverse = reverseSensorVal; 
-
-   // end limit switch counter 
    
-
-  // Reed Switch counter 
+  // Begin Reed Switch counter 
 
  //read the sensor pin (pin that connects wire to switch)
 
