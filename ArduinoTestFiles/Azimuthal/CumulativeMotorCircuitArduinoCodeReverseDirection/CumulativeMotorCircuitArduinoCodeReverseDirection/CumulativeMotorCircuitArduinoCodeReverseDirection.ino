@@ -1,5 +1,5 @@
 /*
- * Motor Test Code with SRT switches, and reed switch in the Reverse direction 
+ * Motor Test Code with limit switches and reed switch in the Reverse direction 
  * 
  * 
  * Author: Jonathan Hasan
@@ -124,28 +124,33 @@ if(motor_shutoff == 0){
 
   //Otherwise, run motor in reverse direction at 50% duty cycle 
   else{
-    delay(100); 
+    //delay(100); 
     digitalWrite(A_1, LOW); 
     digitalWrite(A_2, HIGH); 
-    digitalWrite(A_PWM, round(val/2)); 
+    digitalWrite(A_PWM, round(val/2));
+
+
   }
 }
 
 ////If control variable is 1, shutoff motor for all future loops  
-else{
+  else{
   digitalWrite(A_1, LOW); 
   digitalWrite(A_2, LOW); 
   digitalWrite(A_PWM, LOW); 
-}
-   
-  // Reed Switch counter 
+  }
 
- //read the reed sensor pin (pin that connects wire to switch)
+
+
+
+// Reed Switch counter 
+
+  //read the reed sensor pin (pin that connects wire to switch)
 
   int reedSensorVal = digitalRead(count_pin_reed);
 
   //print value of sensor
-  //Serial.println(reedSensorVal);
+  Serial.println(reedSensorVal);
 
 
   //check if the state is equal to the sensor value state.
@@ -153,16 +158,16 @@ else{
   if (last_state != reedSensorVal) {
     if (reedSensorVal == HIGH) {
       digitalWrite(output_pin_reed, LOW);
-      reed_count -= 1;
-    }  else {
-      digitalWrite(output_pin_reed, HIGH);
-    }
-  }
+        reed_count -= 1;
+        } 
+    else {
+        digitalWrite(output_pin_reed, HIGH);
+        }
+   }
 
   //change state to recent state and print count
   last_state = reedSensorVal;
-  //Serial.println(reed_count);
+  Serial.println(reed_count);
 
 // End Reed Switch Counter 
-
 }

@@ -75,6 +75,10 @@ void setup() {
  // End setup for Limit Switches 
 
  Serial.println("Motor starting...."); 
+
+ Serial.println("Homing start"); 
+
+ //GoHome(motor_shutoff, pin_forward, A_1, A_2, A_PWM, val); 
   
 }
 
@@ -126,7 +130,6 @@ if(motor_shutoff == 0){
   
 // //Otherwise, run motor in forward direction at 50% duty cycle 
   else{
-    delay(100); 
     digitalWrite(A_1, HIGH); 
     digitalWrite(A_2, LOW); 
     digitalWrite(A_PWM, round(val/2)); 
@@ -139,6 +142,7 @@ else{
   digitalWrite(A_2, LOW); 
   digitalWrite(A_PWM, LOW); 
 }
+
    
   // Begin Reed Switch counter 
 
@@ -163,10 +167,48 @@ else{
 
   //change state to recent state and print count
   last_state = reedSensorVal;
-  //Serial.println(reed_count);
+  Serial.println(reed_count);
 
 // End Reed Switch Counter 
+}
 
+void GoHome(int motor_shutoff, int pin_forward, int A_1, int A_2, int A_PWM, int val){
 
+  if(motor_shutoff == 0){
+  //As long as the control variable is 0, run the motor. 
+    if(digitalRead(pin_forward) == LOW) {
+      Serial.println("forward switch LOW"); 
+      digitalWrite(A_1, LOW);
+      digitalWrite(A_2, LOW);
+      digitalWrite(A_PWM, LOW);
+          
+      digitalWrite(A_1, LOW);
+      digitalWrite(A_2, HIGH);
+      digitalWrite(A_PWM, round(val/2));
+      
+      //When pin returns to INPUT_PULLUP, shutoff the motor 
+      if(digitalRead(pin_forward) == HIGH){
+        Serial.println("5V pullup forward reacquired"); 
+        motor_shutoff = 1; 
+        digitalWrite(A_1, LOW); 
+        digitalWrite(A_2, LOW); 
+        digitalWrite(A_PWM, LOW);
+        Serial.println("shutting down"); 
+        Serial.end();   
+      }
+    }
 
+    // //Otherwise, run motor in forward direction at 50% duty cycle 
+  else{
+    digitalWrite(A_1, HIGH); 
+    digitalWrite(A_2, LOW); 
+    digitalWrite(A_PWM, round(val)); 
+   }
+}
+
+else{
+  digitalWrite(A_1, LOW);
+  digitalWrite(A_2, HIGH);
+  digitalWrite(A_PWM, round(val/2));
+  }
 }

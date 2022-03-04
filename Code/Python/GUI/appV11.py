@@ -25,7 +25,7 @@ import time
 import serial
 
 #Initialize serial communication, this is often commented out to see the webpage when the Arduino is not hooked up
-#ser1 = serial.Serial('/dev/ttyACM0', baudrate = 9600, timeout=1)
+ser1 = serial.Serial('COM6', baudrate = 9600, timeout=1)
 
 #Dummy variables for keeping track of button presses.
 prevclick = 0
