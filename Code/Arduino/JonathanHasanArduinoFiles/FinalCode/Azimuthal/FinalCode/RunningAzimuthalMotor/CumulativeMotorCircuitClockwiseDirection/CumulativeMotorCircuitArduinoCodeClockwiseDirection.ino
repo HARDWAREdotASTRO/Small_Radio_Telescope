@@ -2,13 +2,11 @@
  * Motor Test Code with SRT switches, and reed switch in the forward direction 
  * 
  * Author: Jonathan Hasan
- * Date: 6/24/2021
+ * Date: 4/11/2022
  * 
  * Purpose: 
  * 
- * Create a script that will allow for the running of the motor with arduino, pololu chip
- * tsiny motor, the two limit switches on the SRT and the reed switch in the forward direction (Clockwise)
- *
+ * Run the motor clockwise with the pololu motor carrier chip 
  * 
  * Instructions:
  * 
@@ -35,8 +33,10 @@ int A_2 = 12;        //pulse width to the Pololu chip.
 int A_PWM = 11;
 
 // initialize pins and variables for forward switch
-int pin_forward = 7;
-int output_pin_forward = 5;
+// Original pin for forward is 7. Output_pin_forward most likely used for debuggin in clayton's original code. 
+
+int pin_forward = 6;
+//int output_pin_forward = 5;
 
 //set pwm value 
 int val = 255; 
@@ -70,13 +70,13 @@ void setup() {
 
 // Setup for limit switches
   pinMode(pin_forward, INPUT_PULLUP);  
-  pinMode(output_pin_forward, OUTPUT);
+  //pinMode(output_pin_forward, OUTPUT);
 
  // End setup for Limit Switches 
 
  Serial.println("Motor starting...."); 
 
- Serial.println("Homing start"); 
+ //Serial.println("Homing start"); 
 
  //GoHome(motor_shutoff, pin_forward, A_1, A_2, A_PWM, val); 
   
@@ -107,7 +107,8 @@ if(motor_shutoff == 0){
     digitalWrite(A_1, LOW);
     digitalWrite(A_2, LOW);
     digitalWrite(A_PWM, LOW);
-        
+
+     // Original direction: A_1: LOW, A_2: HIGH
     digitalWrite(A_1, LOW);
     digitalWrite(A_2, HIGH);
     digitalWrite(A_PWM, round(val/2));
@@ -130,6 +131,8 @@ if(motor_shutoff == 0){
   
 // //Otherwise, run motor in forward direction at 50% duty cycle 
   else{
+
+    //Original direction of motor A_1: High, A_2 Low 
     digitalWrite(A_1, HIGH); 
     digitalWrite(A_2, LOW); 
     digitalWrite(A_PWM, round(val/2)); 
@@ -158,11 +161,11 @@ else{
   //If it is, don't increment count. If not, change value and increase by 1.
   if (last_state != reedSensorVal) {
     if (reedSensorVal == HIGH) {
-      digitalWrite(output_pin_reed, LOW);
       reed_count += 1;
-    }  else {
-      digitalWrite(output_pin_reed, HIGH);
-    }
+    }  
+    else {
+      reed_count+=0; 
+   }
   }
 
   //change state to recent state and print count
@@ -172,6 +175,7 @@ else{
 // End Reed Switch Counter 
 }
 
+/*
 void GoHome(int motor_shutoff, int pin_forward, int A_1, int A_2, int A_PWM, int val){
 
   if(motor_shutoff == 0){
@@ -197,6 +201,7 @@ void GoHome(int motor_shutoff, int pin_forward, int A_1, int A_2, int A_PWM, int
         Serial.end();   
       }
     }
+    
 
     // //Otherwise, run motor in forward direction at 50% duty cycle 
   else{
@@ -212,3 +217,4 @@ else{
   digitalWrite(A_PWM, round(val/2));
   }
 }
+*/

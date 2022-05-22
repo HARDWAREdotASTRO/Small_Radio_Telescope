@@ -1,19 +1,18 @@
 /*
- * Motor Test Code with limit switches and reed switch in the Reverse direction 
+ * Motor Test Code with limit switches and reed switch in the CounterClockwise direction 
  * 
  * 
  * Author: Jonathan Hasan
- * Created: 9/16/2021 Time: 3:37 PM
- * 
+ * Created: 4/11/2022
  * 
  * Purpose: 
  * 
- * Create a script that will allow for the running of the motor in the reverse direction (CounterClockwise) 
+ * Run the motor counterclockwise using the pololu motor carrier chip 
  *
  * 
  * Instructions:
  * 
- *Construct the circuit, install the limit switches,install reed switch setup the motor and dc supply and then run the code. 
+ *Construct the circuit according to wiring document, install the limit switches,install reed switch setup the motor and dc supply and then run the code. 
  */
 
  
@@ -34,9 +33,9 @@ int A_1 = 13;       //These pins out put forward, reverse and the
 int A_2 = 12;        //pulse width to the Pololu chip.
 int A_PWM = 11;
 
-// initialize pins and variables for reverse switch 
-int pin_reverse = 6; 
-int output_pin_reverse = 4; 
+// initialize pins and variables for reverse switch . Originally 6. output_pin_reverse most likely used for debugging in claytons original code. 
+int pin_reverse = 7; 
+//int output_pin_reverse = 4; 
 
 //set pwm value 
 int val = 255; 
@@ -52,7 +51,7 @@ void setup() {
   // 5V as long as circuit is open, 0V when circuit complete
   pinMode(count_pin_reed, INPUT_PULLUP);
 
-  //output is shown on this pin
+  //output of reed switch is shown on this pin
   pinMode(output_pin_reed, OUTPUT);
 
 // End setup for Reed Switch
@@ -70,7 +69,7 @@ void setup() {
 
 // Setup for limit switches
   pinMode(pin_reverse, INPUT_PULLUP); 
-  pinMode(output_pin_reverse, OUTPUT); 
+//  pinMode(output_pin_reverse, OUTPUT); 
 
  // End setup for Limit Switches 
 
@@ -99,6 +98,7 @@ if(motor_shutoff == 0){
 
   // End of Limit Switch Check 
 
+  // if the limit switch is triggered, stop the motor and then reverse its direction
   else if(digitalRead(pin_reverse) == LOW){
     Serial.println("reverse switch LOW"); 
     digitalWrite(A_1, LOW);
@@ -157,11 +157,12 @@ if(motor_shutoff == 0){
   //If it is, don't increment count. If not, change value and increase by 1.
   if (last_state != reedSensorVal) {
     if (reedSensorVal == HIGH) {
-      digitalWrite(output_pin_reed, LOW);
+      //digitalWrite(output_pin_reed, LOW);
         reed_count -= 1;
         } 
     else {
-        digitalWrite(output_pin_reed, HIGH);
+        //digitalWrite(output_pin_reed, HIGH);
+        reed_count -= 0; 
         }
    }
 

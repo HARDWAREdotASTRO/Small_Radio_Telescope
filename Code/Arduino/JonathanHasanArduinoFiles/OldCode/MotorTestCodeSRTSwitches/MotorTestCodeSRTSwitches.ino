@@ -5,6 +5,7 @@
  * Date: 6/24/2021
  * 
  * Updated : 6/28/2021 Time: 11:45 AM
+ * UPdated: 4/22/2022
  * 
  * Purpose: 
  * 
@@ -18,7 +19,7 @@
  */
 
 
-//initialize pins
+//initialize pins for the motor
 
 int A_1 = 13;       //These pins out put forward, reverse and the
 int A_2 = 12;        //pulse width to the Pololu chip.
@@ -26,9 +27,9 @@ int A_PWM = 11;
 
 
 
-//pins for forward and reverse switch
-int forward_pin = 7;
-int reverse_pin = 6; 
+//pins for Left ( activates in CCW direction) and right (activates in CW direction) switch
+int leftLimitSwitch = 6;
+int rightLimitSwitch = 7; 
 
 //initialize variables 
 
@@ -38,9 +39,10 @@ int last_state1 = 0;
 int last_state2 = 0; 
 
 
-// Instantiate count variables 
-int forward_count = 0; 
-int reverse_count = 0; 
+// Instantiate count variables. For some odd reason, the count increments right away at the beginning. 
+//Decided to set the variable to -1 so that it would go up to 0. Not sure what is causing it. 
+int leftLimitSwitch_count = -1; 
+int rightLimitSwitch_count = -1; 
 
 int val = 255; 
 
@@ -62,28 +64,32 @@ void setup() {
 //  pinMode(count_pin, INPUT_PULLUP);  //Initialize sensor pins.
 
 // Uncomment below lines when forward_pin and reverse_pin are instantiated
-  pinMode(forward_pin, INPUT_PULLUP); 
-  pinMode(reverse_pin, INPUT_PULLUP); 
+  pinMode(leftLimitSwitch, INPUT_PULLUP); 
+  pinMode(rightLimitSwitch, INPUT_PULLUP); 
  
   
 }
 
 void loop() {
 
+//print both the Right and left limit switch values 
+
+Serial.println("Left Limit switch value: " + String(leftLimitSwitch_count) + " " + "Right Limit switch value: " + String(rightLimitSwitch_count)); 
+
 // Condition for the running of the  motor. 
 
 //if forward or reverse count greater than >= 1, stop the motor. 
-  if(forward_count >= 2  || reverse_count >= 2){
+  if(leftLimitSwitch_count >= 2  || rightLimitSwitch_count >= 2){
     digitalWrite(A_1, LOW);
     digitalWrite(A_2, LOW);
     digitalWrite(A_PWM, LOW);
 
     //if count for either forward or reverse exceeds 2, end the serial stream. 
-    if(forward_count >=2){
-      Serial.println("forward_count is greater than or equal to 2"); 
+    if(leftLimitSwitch_count >=2){
+      Serial.println("count on Left Limit Switch is greater than or equal to 2"); 
     }
     else{
-      Serial.println("reverse_count is greater than or equal to 2"); 
+      Serial.println("count on Right Limit Switch is greater than or equal to 2"); 
     }
     Serial.println("Shutting down....");
     Serial.end(); 
@@ -96,27 +102,29 @@ void loop() {
 
 
   //read the pin for switches
-  int sensorVal1 = digitalRead(forward_pin); 
-  int sensorVal2 = digitalRead(reverse_pin);
+  int sensorVal1 = digitalRead(leftLimitSwitch); 
+  int sensorVal2 = digitalRead(rightLimitSwitch);
 
 
   //check if the state of pins 8, 9 is equal to the sensor value state. 
   //If it is, don't increment count. If not, change value and increase by 1. 
   if(last_state1 != sensorVal1){
     if (sensorVal1 == HIGH) {
-      digitalWrite(5, LOW);
-      forward_count += 1;
+      //digitalWrite(5, LOW);
+      leftLimitSwitch_count += 1;
   }  else {
-      digitalWrite(5, HIGH); 
+      //digitalWrite(5, HIGH); 
+      leftLimitSwitch_count += 0; 
     }
   }
 
   if(last_state2 != sensorVal2){
     if (sensorVal2 == HIGH) {
-      digitalWrite(4, LOW);
-      reverse_count += 1;
+      //digitalWrite(4, LOW);
+      rightLimitSwitch_count += 1;
   }  else {
-      digitalWrite(4, HIGH); 
+      //digitalWrite(4, HIGH);
+      rightLimitSwitch_count += 0; 
     }
   }
 

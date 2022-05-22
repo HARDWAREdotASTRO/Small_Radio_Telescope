@@ -20,7 +20,7 @@
 int motor_shutoff = 0; 
 
 //Serial variable to watch from user input 
-char motor_direction; 
+int motor_direction; 
 
 //initialize pins and variables for reed switch 
 //One end of reed switch should be in pin 2, other should be in ground. Pin 8 is just for storing count variable. 
@@ -87,10 +87,10 @@ void loop() {
   if(motor_shutoff == 0){
 
     //Forward direction
-    if(Serial.available()>0){
-    motor_direction = (char)Serial.read(); 
-      
-    if (motor_direction == '1'){
+    while(Serial.available()>0){
+    motor_direction = Serial.read() - 48; 
+    Serial.println(motor_direction); 
+    if (motor_direction == 1){
           //if reed switch count greater than 10, stop the motor.   # first 1000 second: 1029   Total reed switch counts : 2029 for azimuthal direction 
           if(reed_count >= 10000){
             digitalWrite(A_1, LOW);
@@ -139,7 +139,7 @@ void loop() {
         }
     
         //Reverse direction 
-       else if (motor_direction = 0){
+       else if (motor_direction == 0){
           
       
         //if reed switch count less than -300000, stop the motor.
@@ -213,7 +213,7 @@ void loop() {
   int reedSensorVal = digitalRead(count_pin_reed);
 
   //print value of sensor
-  Serial.println(reedSensorVal);
+  //Serial.println(reedSensorVal);
 
 
   //check if the state is equal to the sensor value state.
@@ -230,7 +230,7 @@ void loop() {
 
   //change state to recent state and print count
   last_state = reedSensorVal;
-  Serial.println(reed_count);
+  //Serial.println(reed_count);
 
 // End Reed Switch Counter 
 
