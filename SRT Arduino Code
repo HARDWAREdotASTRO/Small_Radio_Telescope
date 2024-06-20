@@ -191,6 +191,7 @@ int pickFunction(int &request) {
     Serial.println(" ");
     request = 0;
   }
+<<<<<<< Updated upstream:SRT Arduino Code
 }
 
 int GoHome(int &direct, int &forLimitReach, int &revLimitReach){
@@ -200,8 +201,57 @@ int GoHome(int &direct, int &forLimitReach, int &revLimitReach){
         Move(count, forLimitReach, revLimitReach, zeroed);
       }
       else{
+=======
+    if (order == 0){        //Do nothing loop. More of a precaution
+      direct = 0;
+      Move(count, forLimitReach, revLimitReach, zeroed);
+    }
+    if (order == 1){        //Forward loop, for direct control.
+      direct = 1;
+      Move(count, forLimitReach, revLimitReach, zeroed);
+    }
+    if (order == 2){        //Reverse loop, for direct control.
+      direct = 2;
+      Move(count, forLimitReach, revLimitReach, zeroed);
+    }
+    if (order == 3){                    //Order = 3 is the Go Home function.
+      GoHome(direct, forLimitReach, revLimitReach);
+    } 
+   /* if (order == 4){
+     
+      if(count > 18){
+        Move(direct, forLimitReach, revLimitReach, zeroed);
+        direct = 2;
+      }
+      else if(count <= 18 && revLimitReach == 0){
+        Move(direct, forLimitReach, revLimitReach, zeroed);
+        direct = 1;
+        if (count = 18)
+          Stop();  
+          
+        }
+      } */
+    }  
+  
+
+int GoHome( int &forLimitReach, int &revLimitReach){
+    k = count;
+    if (K > 17){                  //Home is the far reverse position(count = 0)
+      if (revLimitReach == 1){        //If motor is far from the home position, it begins moving towards home 
+        direct = 2;                   
+        Move(count, forLimitReach, revLimitReach, zeroed);
+      }
+    }
+    if (count < 17){                  //If motor is close to home, move towards count = 17.  
+      if (revLimitReach == 1){        
+>>>>>>> Stashed changes:SRT_CodeV2/SRT_CodeV2.ino
         direct = 2;
         Move(count, forLimitReach, revLimitReach, zeroed);
+      }
+      if (revLimitReach == 0){
+        direct = 1;
+        Move(count, forLimitReach, revLimitReach, zeroed);
+
       }
     }
     if (count < 1002){                //If the count is less than 1003 check the 
