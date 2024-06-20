@@ -278,24 +278,39 @@ void Reverse() {                //Reverse function.
 }
 
 int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed) {
-  zeroed = 0;
-  delay(5);
   k = count;                     //Calls counting function so when
 
   forward_check = digitalRead(ForLimit);
   reverse_check = digitalRead(RevLimit);
-  if (forward_check == 0){
-    direct = 2;
+  
+  if (forward_check == 0) {
+    if(reverse_check == 0){
+      Stop();
+    } 
+    else {
+      direct = 2;
     Move(count, forLimitReach, revLimitReach, zeroed);
-  } 
-  if (reverse_check == 0 && forward_check == 1);{
-    count = 0;
+    }
+  }  
+  
+  if (forward_check == 1 && reverse_check == 1) {
+    if(reverse_check == 0){
+      Stop();
+    } 
+    else {
+      direct = 2;
+      Move(count, forLimitReach, revLimitReach, zeroed);
+    }
+  }  
+  
+  
+  else if (reverse_check == 0 && forward_check == 1){
     direct = 1;
     Move(count, forLimitReach, revLimitReach, zeroed); 
-    if(count == 18){
+    if(count >= 30){
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);  
-      if (reverse_check == 0){
+      if (reverse_check == 0 && count <= 10){
           Stop();
           delay(5);
           count=0;
@@ -303,50 +318,11 @@ int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed) {
           revLimitReach = 1;
           zeroed = 1;
       }
-    }
-
-    
+    }   
   }
-  if (reverse_check == 1 && forward_check == 1){
-    direct = 2;
-    Move(count, forLimitReach, revLimitReach, zeroed);
-  }
-   
-     /* if (k == count_till && zeroed == 1) {              //count is achieved motor stops. 
-        direct = 0;
-        }
-      if (direct == 0) {                  //When not moving direct = 0,
-        Stop();                           //motor is stopped.
-      }
-      if (direct == 1) {                  //Direct = 2, reverse motion
-        forward_check = digitalRead(ForLimit);
-        if(forward_check == 1){           //so long as limit isn't triggered.
-            Forward();
-          }        
-        else{
-          Stop();
-          delay(5);
-          count=2005;
-          direct = 0;
-          forLimitReach = 1;
-          zeroed = 1;
-        }
-      }
-      if (direct == 2) {                  //Direct = 2, reverse motion
-        reverse_check = digitalRead(RevLimit);
-        if(reverse_check == 1){           //so long as limit isn't triggered.
-          Reverse();
-        }
-        else{
-          Stop();
-          delay(5);
-          count=0;
-          direct = 0;
-          revLimitReach = 1;
-          zeroed = 1;
-        }
-      } */
 }
+
+
 
 void Stop() {                   //Stop function.
   digitalWrite(A_1, LOW);
