@@ -152,10 +152,9 @@ int Move(int &count, int &forLimitReach, int &revLimitReach, int &zeroed){      
         else{
           Stop();
           delay(5);
-          //count=2005;
           direct = 0;
           forLimitReach = 1;
-          //zeroed = 1;
+        
         }
       }
       if (direct == 2) {                  //Direct = 2, reverse motion
@@ -166,10 +165,8 @@ int Move(int &count, int &forLimitReach, int &revLimitReach, int &zeroed){      
         else{
           Stop();
           delay(5);
-          //count=0;
           direct = 0;
           revLimitReach = 1;
-          //zeroed = 1;
         }
       }
 }
@@ -209,7 +206,8 @@ int pickFunction(int &request) {
                       + (receivedChars[6] & 0xf)*10 
                       + (receivedChars[7] & 0xf);
     request = 0;
-    count_till = count;                              // Precaution line to make sure motor does not move
+    delay(5);
+    
   }
 }
 
@@ -270,42 +268,42 @@ void Reverse() {                //Reverse function.
 }
 
 int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed)    //zeroing funtion
-{                                                                            //Can only be used when the count is zero.
+{                                                                            //Called by entering <x,4,xxxx,xxx>                                                  
  
   
 
   forward_check = digitalRead(ForLimit);
   reverse_check = digitalRead(RevLimit);
   
-  if (forward_check == 0) {
+  if (forward_check == 0) {                                     //I motor is at the forward limit it begins to move towards the reverse limit.
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);
   }  
   
-  if (forward_check == 1 && reverse_check == 1) {
+  if (forward_check == 1 && reverse_check == 1) {              //If the motor is at no limits, it moves towards the reverse limit.
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);
-      if(z == 1){
+      if(z == 1){                                              //z increases if the motor has recently touched the reverse limit.
         z = 2;
       }
     }
     
   
   
-  else if (reverse_check == 0){
-    direct = 1;    
-    if(z == 0){
-      z = 1;
+  else if (reverse_check == 0){                               //If motor is at the reverse limit.....
+    direct = 1;                                              
+    if(z == 0){          
+      z = 1;          //Z increases to 1 the first time the reverse limit is activated.
       
     }
     if( z == 2){
-      z = 3;
+      z = 3;          //Z increases to 3 the second time the reverse limit is activated.
     }
     Move(count, forLimitReach, revLimitReach, zeroed); 
     
   }  
-    if (z == 3 && reverse_check == 0){
-        Stop();
+    if (z == 3 && reverse_check == 0){          //Once the reverse limit is activated a second time
+        Stop();                                 //The motor has been zeroed.
         delay(5);
         count=0;
         order = 0;
