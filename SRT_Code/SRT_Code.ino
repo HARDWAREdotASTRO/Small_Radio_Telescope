@@ -40,7 +40,7 @@ int switchState = 0;//To check switch state.
 
 int k;          //For calling counter function.
 int zeroed = 0;
-int i = 0;      //For calling zeroing function.
+int z = 0;      //For calling zeroing function.
 
 const byte numChars = 32;       //These establish a variable for the
 char receivedChars[numChars];   //string being read from the Pi.
@@ -78,7 +78,6 @@ void loop() {
   translateString(request, order, count_till, sped);
   pickFunction(request);
   Serial.println(count);
-
 }  
 
 void SerialInputFromPi(){
@@ -178,14 +177,6 @@ int Move(int &count, int &forLimitReach, int &revLimitReach, int &zeroed){      
 int pickFunction(int &request) {
   counter();
 
- /* if (request == 8){
-    //Count = <x,x,____,xxx>
-    count = (receivedChars[4] & 0xf)*1000       
-                      + (receivedChars[5] & 0xf)*100 
-                      + (receivedChars[6] & 0xf)*10 
-                      + (receivedChars[7] & 0xf);
-  }*/
-  //else {
     if (order == 0){        //Do nothing loop. More of a precaution
       direct = 0;
       Move(count, forLimitReach, revLimitReach, zeroed);
@@ -278,47 +269,52 @@ void Reverse() {                //Reverse function.
   }
 }
 
-int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed) {
-  k = count;                     //Calls counting function so when
+int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed)    //zeroing funtion
+{                                                                            //Can only be used when the count is zero.
+ 
   
 
   forward_check = digitalRead(ForLimit);
   reverse_check = digitalRead(RevLimit);
   
   if (forward_check == 0) {
-    if(reverse_check == 0){
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);
-    }
   }  
   
   if (forward_check == 1 && reverse_check == 1) {
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);
+      if(z == 1){
+        z = 2;
+      }
     }
     
   
   
-  else if (reverse_check == 0 && forward_check == 1){
-    i++;
-    delay(5);
-    direct = 1;
+  else if (reverse_check == 0){
+    direct = 1;    
+    if(z == 0){
+      z = 1;
+      
+    }
+    if( z == 2){
+      z = 3;
+    }
     Move(count, forLimitReach, revLimitReach, zeroed); 
-    if(count >= 30){
-      i++;
-      delay(5);
-      direct = 2;
-      Move(count, forLimitReach, revLimitReach, zeroed);  
-      if (i == 3){
-          Stop();
-          delay(5);
-          count=0;
-          direct = 0;
-          revLimitReach = 1;
-          zeroed = 1;
+    
+  }  
+    if (z == 3 && reverse_check == 0){
+        Stop();
+        delay(5);
+        count=0;
+        order = 0;
+        revLimitReach = 1;
+        zeroed = 1;
+        z = 0;
       }
-    }   
-  }
+       
+  
 }
 
 
