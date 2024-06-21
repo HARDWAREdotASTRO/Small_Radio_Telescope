@@ -40,6 +40,7 @@ int switchState = 0;//To check switch state.
 
 int k;          //For calling counter function.
 int zeroed = 0;
+int i = 0;      //For calling zeroing function.
 
 const byte numChars = 32;       //These establish a variable for the
 char receivedChars[numChars];   //string being read from the Pi.
@@ -152,10 +153,10 @@ int Move(int &count, int &forLimitReach, int &revLimitReach, int &zeroed){      
         else{
           Stop();
           delay(5);
-          count=2005;
+          //count=2005;
           direct = 0;
           forLimitReach = 1;
-          zeroed = 1;
+          //zeroed = 1;
         }
       }
       if (direct == 2) {                  //Direct = 2, reverse motion
@@ -166,10 +167,10 @@ int Move(int &count, int &forLimitReach, int &revLimitReach, int &zeroed){      
         else{
           Stop();
           delay(5);
-          count=0;
+          //count=0;
           direct = 0;
           revLimitReach = 1;
-          zeroed = 1;
+          //zeroed = 1;
         }
       }
 }
@@ -279,38 +280,36 @@ void Reverse() {                //Reverse function.
 
 int Zero(int &count, int &forLimitReach, int &revLimitReach, int &zeroed) {
   k = count;                     //Calls counting function so when
+  
 
   forward_check = digitalRead(ForLimit);
   reverse_check = digitalRead(RevLimit);
   
   if (forward_check == 0) {
     if(reverse_check == 0){
-      Stop();
-    } 
-    else {
-      direct = 2;
-    Move(count, forLimitReach, revLimitReach, zeroed);
-    }
-  }  
-  
-  if (forward_check == 1 && reverse_check == 1) {
-    if(reverse_check == 0){
-      Stop();
-    } 
-    else {
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);
     }
   }  
   
+  if (forward_check == 1 && reverse_check == 1) {
+      direct = 2;
+      Move(count, forLimitReach, revLimitReach, zeroed);
+    }
+    
+  
   
   else if (reverse_check == 0 && forward_check == 1){
+    i++;
+    delay(5);
     direct = 1;
     Move(count, forLimitReach, revLimitReach, zeroed); 
     if(count >= 30){
+      i++;
+      delay(5);
       direct = 2;
       Move(count, forLimitReach, revLimitReach, zeroed);  
-      if (reverse_check == 0 && count <= 10){
+      if (i == 3){
           Stop();
           delay(5);
           count=0;
