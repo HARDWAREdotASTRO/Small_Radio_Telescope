@@ -1,28 +1,28 @@
-#import dash
-#import dash_core_components as dcc
-#import dash_html_components as html
-#import dash_daq as daq
-#from dash.dependencies import Input, Output, State
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_daq as daq
+from dash.dependencies import Input, Output, State
 
-#from astropy.coordinates import EarthLocation
-#from astropy import units as u
-#from astropy.coordinates import SkyCoord
-#from astropy.coordinates import AltAz
-#from astropy.coordinates import get_body
-#from astropy.time import Time
-#from astropy.table import Table
+from astropy.coordinates import EarthLocation
+from astropy import units as u
+from astropy.coordinates import SkyCoord
+from astropy.coordinates import AltAz
+from astropy.coordinates import get_body
+from astropy.time import Time
+from astropy.table import Table
 
-#import numpy as np
-#import matplotlib.pyplot as plt
-#import plotly.graph_objs as go
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objs as go
 
-#from IPython.display import Image
-#from astropy.visualization import astropy_mpl_style
-#plt.style.use(astropy_mpl_style)
+from IPython.display import Image
+from astropy.visualization import astropy_mpl_style
+plt.style.use(astropy_mpl_style)
 
 
-#import time
-#import serial
+import time
+import serial
 
 #Initialize serial communication, this is often commented out to see the webpage when the Arduino is not hooked up
 #ser1 = serial.Serial('/dev/ttyACM0', baudrate = 9600, timeout=1)
