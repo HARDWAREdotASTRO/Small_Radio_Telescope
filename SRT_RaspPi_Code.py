@@ -809,6 +809,7 @@ def goHomeButton(home_clicks):
         this_str = "<0,3,9999,090>"
         #Sends string to arduino
         ser1.write(str.encode(this_str))
+        ser2.write(str.encode(this_str))
         #Need to keep track of clicks(still not sure if necessary)
         homeprev = homeprev + 1
 
@@ -823,6 +824,7 @@ def StopButton(stop_clicks):
     this_str = "<0,0>"
     #Sends string to the Arduino
     ser1.write(str.encode(this_str))
+    ser2.write(str.encode(this_str))
 
 #Button to zero motors
 @app.callback(
@@ -835,7 +837,7 @@ def ZeroButton(zero_clicks):
     this_str = "<0,4,0000,100>"
     #Sends string to the Arduino
     ser1.write(str.encode(this_str))
-
+    ser2.write(str.encode(this_str))
 #Alt Direct Motor Control begins now
 @app.callback(
     Output(component_id='alt-for-button-count', component_property='children'),
@@ -854,7 +856,7 @@ def AltForButton(alt_for_clicks, speed_alt):
             this_str = "<0,1,9999,{}>".format(speed_alt)
         if speed_alt < 10:
             this_str = "<0,1,9999,00{}>".format(speed_alt)
-        ser1.write(str.encode(this_str))
+        ser2.write(str.encode(this_str))
         altforprev = altforprev + 1
 
 @app.callback(
@@ -872,7 +874,7 @@ def AltRevButton(alt_rev_clicks, speed_alt):
             this_str = "<0,2,9999,{}>".format(speed_alt)
         if speed_alt < 10:
             this_str = "<0,2,9999,00{}>".format(speed_alt)
-        ser1.write(str.encode(this_str))
+        ser2.write(str.encode(this_str))
         altrevprev = altrevprev + 1
 
 #Control motor speed for direct control
@@ -918,7 +920,7 @@ def AltForButton(az_rev_clicks, speed_az):
             this_str = "<0,2,9999,{}>".format(speed_az)
         if speed_az < 10:
             this_str = "<0,2,9999,00{}>".format(speed_az)
-        ser1.write(str.encode(this_str))
+        ser2.write(str.encode(this_str))
         azrevprev = azrevprev + 1
 
 @app.callback(
@@ -995,31 +997,31 @@ def motorLocation(delay):
 )
 
 def motorLocation(delay):
-    global motAz
-    ser1.write(str.encode("<9>"))
+    global motAlt
+    ser2.write(str.encode("<9>"))
     try:
         data =ser1.readline().decode('ascii')
         data1 = data.split(" ")
     except serial.serialutil.SerialException:
-        return motAz
+        return motAlt
     try:
         location = int(data1[0])
     except ValueError:
-        return motAz
+        return motAlt
     if location <= 1003:
         azimuthDec = 90 * location / 1003
         az_deg = round(azimuthDec)
-        motAz = "{}°".format(az_deg)
+        motAlt = "{}°".format(az_deg)
         data = ''
-        return motAz
+        return motAlt
     if location > 1003:
         azimuthDec = 90 - 90 * (location - 1003) / 1003
         az_deg = round(azimuthDec)
-        motAz = "{}°".format(az_deg)
+        motAlt = "{}°".format(az_deg)
         data = ''
-        return motAz
+        return motAlt
     else:
-        return motAz
+        return motAlt
 
 @app.callback(
     Output('graph', 'figure'),
