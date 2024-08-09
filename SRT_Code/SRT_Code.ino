@@ -33,7 +33,7 @@ int forLimitReach = 0; //Forward limit hasn't been reached.
 
 //Counting Function variables
 int count = 0;      //Blank variable to count high low transitions.
-int count_pin = 4;  //This will be the sensor to count pulses.
+int count_pin = 3;  //This will be the sensor to count pulses.
 
 int lastState = 0;  //Stores switch state.
 int switchState = 0;//To check switch state.
